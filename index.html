@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oria — Agents IA contextuels pour professionnels</title>
+  <meta name="description" content="Oria est une plateforme d'agents IA avec mémoire, modes métier et workspace isolé. Conçu pour les professionnels qui veulent un assistant qui connaît leur contexte." />
+
+  <!-- OG tags for LinkedIn -->
+  <meta property="og:title" content="Oria — Agents IA contextuels pour professionnels" />
+  <meta property="og:description" content="La plateforme que je construis : agents IA avec mémoire, modes métier et workspace isolé. Conçu pour les professionnels qui veulent un assistant qui connaît leur contexte sans mélanger les clients." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mboyer1269-pixel.github.io/oria-hq/" />
+  <meta property="og:image" content="https://mboyer1269-pixel.github.io/oria-hq/og.png" />
+  <meta property="og:site_name" content="Oria" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Oria — Agents IA contextuels pour professionnels" />
+  <meta name="twitter:description" content="La plateforme que je construis : agents IA avec mémoire, modes métier et workspace isolé." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c6ef0;
+      --accent-light: #a899f5;
+      --text: #f0eeff;
+      --muted: #7a7990;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80vw;
+      height: 60vw;
+      background: radial-gradient(ellipse, rgba(124,110,240,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border: 1px solid rgba(124,110,240,0.3);
+      border-radius: 999px;
+      background: rgba(124,110,240,0.08);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 2.5rem;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .logo {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 3rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tagline strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+      text-align: left;
+    }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cta-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .notify-form {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .notify-form input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .notify-form input:focus {
+      border-color: rgba(124,110,240,0.5);
+    }
+
+    .notify-form input::placeholder {
+      color: var(--muted);
+    }
+
+    .notify-form button {
+      padding: 0.7rem 1.25rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .notify-form button:hover {
+      background: var(--accent-light);
+    }
+
+    .notify-form button:active {
+      transform: scale(0.97);
+    }
+
+    .builder-credit {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .builder-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #c084fc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .builder-credit a {
+      color: var(--accent-light);
+      text-decoration: none;
+    }
+
+    .builder-credit a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">En développement actif</div>
+
+    <div class="logo">Oria</div>
+
+    <p class="tagline">
+      Un assistant IA avec <strong>mémoire</strong>, des <strong>modes métier</strong>
+      et un <strong>workspace isolé</strong> par client.<br />
+      Conçu pour les professionnels qui veulent un assistant
+      qui connaît leur contexte — sans jamais mélanger les clients.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-title">Mémoire persistante</div>
+        <div class="feature-desc">L'agent connaît votre historique, vos clients, vos priorités.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🗂️</div>
+        <div class="feature-title">Modes métier</div>
+        <div class="feature-desc">Immobilier, finance, conseil — chaque mode a ses règles.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Workspace isolé</div>
+        <div class="feature-desc">Zéro fuite de contexte entre vos clients et projets.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Briefs quotidiens</div>
+        <div class="feature-desc">Priorités, risques, suivis et ROI — chaque matin.</div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <p class="cta-label">Être notifié au lancement :</p>
+      <div class="notify-form">
+        <input type="email" placeholder="votre@courriel.com" />
+        <button type="button" onclick="this.textContent='✓ Noté'">Notifiez-moi</button>
+      </div>
+    </div>
+
+    <div class="builder-credit">
+      <div class="builder-avatar">MB</div>
+      <span>Construit par <a href="https://www.linkedin.com/in/boyersuivia" target="_blank">Michael Boyer</a> — Architecte d'agents IA autonomes</span>
+    </div>
+  </div>
+</body>
+</html>
